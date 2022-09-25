@@ -110,8 +110,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   
   return {
     paths: paths,
-    //fallback: "blocking" // si mandan un id que no existe, continua sin problema no bota error
-    fallback: false // si mandan un id que no existe retorna un 404
+    fallback: "blocking" // si mandan un id que no existe, continua sin problema no bota error
+    //fallback: false // si mandan un id que no existe retorna un 404
   }
 }
 
@@ -120,11 +120,23 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const { params } = ctx;
   const { name } = params as { name:string }
 
+  
+  const pokemon =  await getPokemonInfo(name)
+  if (  !pokemon ){
+    return {
+      redirect:{
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
   return (
     {
       props: {
-        pokemon: await getPokemonInfo(name)
-      }
+        pokemon
+      },
+      revalidate: 86400 //revalidate each 24h
     }
   )
 }
