@@ -19,7 +19,6 @@ export const Layout: React.FC<Props> = ({ children, title }) => {
         <meta name="author" content="Jair Arteata" />
         <meta name="description" content={`Informacion sobre el pokémon ${ title }`} />
         <meta name="keywords" content={`${ title } pokemon, pokemon, pokedex`} />
-
         <meta property="og:title" content={`Informacion sobre ${ title }`} />
         <meta property="og:description" content={`Esta es la página sobre ${ title }`} />
         <meta property="og:image" content={`${origin}/img/banner.png`} />
